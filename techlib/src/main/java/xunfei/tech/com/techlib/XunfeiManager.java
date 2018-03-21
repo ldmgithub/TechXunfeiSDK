@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import xunfei.tech.com.techlib.utils.JsonParser;
+import xunfei.tech.com.techlib.utils.XFStringUtil;
 
 
 public class XunfeiManager {
@@ -53,6 +54,11 @@ public class XunfeiManager {
         return xunfeiManager;
     }
 
+    //设置默认城市
+    public void setDefaultCity(String defaultCity) {
+        XFStringUtil.setDefaultCity(defaultCity);
+    }
+
     private void initIat() {
         this.mIat = SpeechRecognizer.createRecognizer(this.activity, this.mInitListener);
         this.mIatDialog = new RecognizerDialog(this.activity, this.mInitListener);
@@ -63,17 +69,18 @@ public class XunfeiManager {
     private void initializeIflytek() {
         if (!this.inited) {
             StringBuffer localStringBuffer = new StringBuffer();
-            localStringBuffer.append("appid="+BuildConfig.xunfeiId);
+            localStringBuffer.append("appid=" + BuildConfig.xunfeiId);
             localStringBuffer.append(",");
             localStringBuffer.append("engine_mode=msc");
             SpeechUtility.createUtility(this.activity, localStringBuffer.toString());
         }
     }
-     /****************************************
-      方法描述：开始监听
-      @param  paramBoolean true 显示系统dialog false 不显示系统dialog
-      @return
-      ****************************************/
+
+    /****************************************
+     方法描述：开始监听
+     @param  paramBoolean true 显示系统dialog false 不显示系统dialog
+     @return
+     ****************************************/
     public void beGinListner(boolean paramBoolean) {
         getmIatResults().clear();
         if (paramBoolean) {
@@ -154,6 +161,14 @@ public class XunfeiManager {
     public void showTip(String paramString) {
         this.mToast.setText(paramString);
         this.mToast.show();
+    }
+    public void clear(){
+        this.activity=null;
+        this.mIat =null;
+        this.mIatDialog = null;
+        this.mSharedPreferences = null;
+        this.mRecognizerListener = null;
+        this.mRecognizerDialogListener = null;
     }
 
 }

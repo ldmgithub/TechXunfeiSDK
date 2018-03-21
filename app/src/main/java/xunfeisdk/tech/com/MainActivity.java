@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private void printResult(RecognizerResult paramRecognizerResult, EditText paramEditText) {
         String str1 = this.xunfeiManager.getContent(paramRecognizerResult);
         Log.d("BasicIatActivity", str1);
-        String str2 = XFStringUtil.parseNoneCity(str1, paramEditText.getText().toString(),true);
+        String str2 = XFStringUtil.parseNoneCity(str1, paramEditText.getText().toString(),false);
         paramEditText.setText(str2);
         paramEditText.setSelection(str2.length());
     }

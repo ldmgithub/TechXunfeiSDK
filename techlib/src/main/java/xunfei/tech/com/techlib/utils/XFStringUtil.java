@@ -19,7 +19,7 @@ public class XFStringUtil {
     public static StringBuilder sb = new StringBuilder();
     public static final String IS_NONE_CARNUM = "识别失败，请说\"车牌xxxxxx\"";
 
-    public static String defaultCity = "粤";
+    private static String defaultCity = "粤";
 
     //设置默认城市
     public static void setDefaultCity(String defaultCity) {
@@ -127,14 +127,14 @@ public class XFStringUtil {
      ****************************************/
     public static String parseNoneCity(String srcStr, String defaultStr, boolean hasProve) {
         if ((!TextUtils.isEmpty(srcStr.toUpperCase())) && (srcStr.contains("车牌")))
-            return castToCarNum(srcStr,defaultStr, hasProve).toUpperCase();
+            return castToCarNum(srcStr, defaultStr, hasProve).toUpperCase();
         if ((!TextUtils.isEmpty(srcStr.toUpperCase())) && ((srcStr.startsWith("要把")) || (srcStr.startsWith("修改"))))
             return editCarNum(srcStr.toUpperCase(), defaultStr.toUpperCase()).toUpperCase();
         return defaultStr.toUpperCase();
     }
 
 
-    public static String castToCarNum(String paramString, String defaultString,boolean hasProve) {
+    public static String castToCarNum(String paramString, String defaultString, boolean hasProve) {
         String str1 = "";
         if ("".equals(paramString) ||
                 (!paramString.contains("车牌")) ||
@@ -145,17 +145,13 @@ public class XFStringUtil {
         return str1;
     }
 
-    //是否是城市code
-    public static boolean isProvince(String str3) {
-        return Arrays.asList(mProvincesPin).contains(str3);
-    }
 
     private static String subNumber(String number, boolean hasProve) {
         int index = number.lastIndexOf("车牌");
         String newNum = "";
         try {
-            newNum = number.substring(index + 2);
-            if (isProvince(Cn2Spell.getPinYin(newNum.substring(0, 1)))) {   //是否是城市名开头
+            newNum = number.substring(index + 2);  //将车牌去掉
+            if (isProvince((newNum.substring(0, 1)))) {   //是否是城市名开头
                 if (!hasProve) {
                     newNum = newNum.substring(1);//去掉第一位
                 }
@@ -175,52 +171,96 @@ public class XFStringUtil {
         for (int i = 0; i < newNum.length(); i++) {
             String str2 = newNum.substring(i, i + 1);
             if (hasProve && i == 0) {
-                if (i == 0) {   //首字母处理
-                    if (isProvince(Cn2Spell.getPinYin(str2))) {
-                        for (int k = 0; k < mProvincesPin.length; k++) {
-                            if (!mProvincesPin[k].equals(Cn2Spell.getPinYin(str2))) {
-                                continue;
-                            }
-                            sb.append(mProvinceChines[k]);
-                            break;
-                        }
-                    } else {
-                        sb.append(defaultCity);
-                        continue;
-                    }
-                }
-            } else if (isChinese(str2)) {   //汉字
-                String str3 = Cn2Spell.getPinYin(str2);
-                if (Arrays.asList(numsPins).contains(str3)) {   //数字
-                    for (int k = 0; k < numsPins.length; k++) {
-                        if (!numsPins[k].equals(str3)) {
-                            continue;
-                        }
-                        sb.append(nums[k]);
-                        break;
-                    }
+                //首字母处理
+                if (isProvince(str2)) {
+                    sb.append(getProvince(str2));
                 } else {
-
-                    if (Arrays.asList(EngPins).contains(str3)) { //英语中文拼音过滤
-                        for (int k = 0; k < EngPins.length; k++) {
-                            if (!EngPins[k].equals(str3)) {
-                                continue;
-                            }
-                            sb.append(Engs[k]);
-                            break;
-                        }
-                    } else {
-                        //汉字取第一个字母
-                        sb.append(str3.substring(0, 1));
-                    }
+                    sb.append(defaultCity);
+                    sb.append(pinyin2single(str2));
+                    continue;
                 }
             } else {
-                sb.append(str2);
+                sb.append(pinyin2single(str2));
             }
 
         }
 
         return sb.toString();
+    }
+
+
+    //获取城市
+    private static String getProvince(String pinyin) {
+        pinyin = Cn2Spell.getPinYin(pinyin);
+        String proStr = pinyin.substring(0, 1);
+        for (int k = 0; k < mProvincesPin.length; k++) {
+            if (mProvincesPin[k].equals(pinyin)) {
+                proStr = mProvinceChines[k];
+                break;
+            }
+        }
+        return proStr;
+    }
+
+    /****************************************
+     方法描述：单拼音转换为英文或者数字
+     @param content:文字内容
+     @return
+     ****************************************/
+    private static String pinyin2single(String content) {
+        content = Cn2Spell.getPinYin(content);
+        if (isProvince(content)) {
+            return getProvince(content);
+        }
+        if (isNumber(content)) {
+            return getNumber(content);
+        }
+        if (isEnglish(content)) {
+            return getEnglish(content);
+        }
+        return content.substring(0, 1);
+    }
+
+
+    //获取拼音对应的英语
+    private static String getEnglish(String pinyin) {
+        pinyin = Cn2Spell.getPinYin(pinyin);
+        String engStr = pinyin.substring(0, 1);
+        for (int k = 0; k < EngPins.length; k++) {
+            if (EngPins[k].equals(pinyin)) {
+                engStr = EngPins[k];
+            }
+            break;
+        }
+        return engStr;
+    }
+
+    //获取拼音对应的数字
+    private static String getNumber(String pinyin) {
+        pinyin = Cn2Spell.getPinYin(pinyin);
+        String numStr = pinyin.substring(0, 1);
+        for (int k = 0; k < numsPins.length; k++) {
+            if (numsPins[k].equals(pinyin)) {
+                numStr = numsPins[k];
+                break;
+            }
+        }
+        return numStr.substring(0, 1);
+    }
+
+    //是否是英文
+    private static boolean isEnglish(String pinyin) {
+        return Arrays.asList(EngPins).contains(Cn2Spell.getPinYin(pinyin));
+    }
+
+    //是否是数字
+    private static boolean isNumber(String pinyin) {
+        return Arrays.asList(numsPins).contains(Cn2Spell.getPinYin(pinyin));
+    }
+
+    //是否是城市code
+    public static boolean isProvince(String str3) {
+        return Arrays.asList(mProvincesPin).contains(Cn2Spell.getPinYin(str3));
     }
 
     public static void main(String[] args) {
@@ -233,17 +273,6 @@ public class XFStringUtil {
             mProvincesPin[j] = Cn2Spell.getPinYin(paramArrayOfString[j]);
     }
 
-    public static int countMatches1(String paramString1, String paramString2) {
-        int i = 0;
-        for (i = 0; ; i++) {
-            int j = paramString1.indexOf(paramString2);
-            if (j == -1) {
-                break;
-            }
-            paramString1 = paramString1.substring(j + paramString2.length());
-        }
-        return i;
-    }
 
     public static String editCarNum(String paramString1, String paramString2) {
         return "";
