@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TechLib</string>
+    <string name="IflytekAPP_id">5a793fe7</string>
+    <string name="text_begin">开始监听</string>
+</resources>

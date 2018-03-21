@@ -1,0 +1,85 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:1:1-29:12
+INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:1:1-29:12
+INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:1:1-29:12
+INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:1:1-29:12
+INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:1:1-29:12
+INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:1:1-29:12
+INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:1:1-29:12
+	package
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:2:5-38
+		INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+		INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:1:1-29:12
+		INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:1:1-29:12
+		INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:5:9-71
+	android:name
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:5:26-68
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:7:9-75
+	android:name
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:7:26-72
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:9:9-83
+	android:name
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:9:26-80
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:11:9-80
+	android:name
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:11:26-77
+uses-permission#android.permission.CHANGE_NETWORK_STATE
+ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:13:9-83
+	android:name
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:13:26-80
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:15:9-79
+	android:name
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:15:26-76
+uses-permission#android.permission.READ_CONTACTS
+ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:17:9-76
+	android:name
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:17:26-73
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:19:9-85
+	android:name
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:19:26-82
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:21:9-84
+	android:name
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:21:26-81
+uses-permission#android.permission.WRITE_SETTINGS
+ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:23:9-77
+	android:name
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:23:26-74
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:26:9-83
+	android:name
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:26:26-80
+uses-permission#android.permission.CAMERA
+ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:28:9-69
+	android:name
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml:28:26-66
+uses-sdk
+INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+		INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+		ADDED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml
+		INJECTED from D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\main\AndroidManifest.xml

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\assets"/><source path="D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\kims\cheweiguanjia\project\TechXunfeiSDK\techlib\src\debug\assets"/></dataSet></merger>
