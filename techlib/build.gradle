@@ -20,7 +20,7 @@ android {
     sourceSets {
         main {
             assets.srcDirs = ['assets']
-            jniLibs.srcDirs = ['src/libs']
+            jniLibs.srcDirs = ['libs']
         }
     }
     buildTypes {
