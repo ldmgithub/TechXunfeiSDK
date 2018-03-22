@@ -76,6 +76,12 @@ public class XunfeiManager {
         }
     }
 
+    public void stopListning() {
+        if (this.mIat != null) {
+            this.mIat.stopListening();
+        }
+    }
+
     /****************************************
      方法描述：开始监听
      @param  paramBoolean true 显示系统dialog false 不显示系统dialog
@@ -173,6 +179,7 @@ public class XunfeiManager {
     }
 
     public boolean isEmpty() {
+        stopListning();
         if (this.activity == null) return true;
         if (this.mIat == null) return true;
         if (this.mIatDialog == null) return true;
