@@ -79,7 +79,6 @@ public class XFStringUtil {
                 "ti", "te",
                 "you",
                 "wei",
-                "liu",
                 "X",
                 "wai", "wan",
                 "Z"
@@ -96,7 +95,6 @@ public class XFStringUtil {
                 "I",
                 "J",
                 "K",
-                "L",
                 "M",
                 "N",
                 "O", "O",
