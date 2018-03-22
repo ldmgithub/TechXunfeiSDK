@@ -162,13 +162,24 @@ public class XunfeiManager {
         this.mToast.setText(paramString);
         this.mToast.show();
     }
-    public void clear(){
-        this.activity=null;
-        this.mIat =null;
+
+    public void clear() {
+        this.activity = null;
+        this.mIat = null;
         this.mIatDialog = null;
         this.mSharedPreferences = null;
         this.mRecognizerListener = null;
         this.mRecognizerDialogListener = null;
+    }
+
+    public boolean isEmpty() {
+        if (this.activity == null) return true;
+        if (this.mIat == null) return true;
+        if (this.mIatDialog == null) return true;
+        if (this.mSharedPreferences == null) return true;
+        if (this.mRecognizerListener == null) return true;
+        if (this.mRecognizerDialogListener == null) return true;
+        return false;
     }
 
 }
