@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.ui.RecognizerDialog;
@@ -142,13 +143,15 @@ public class XunfeiManager {
     }
 
     public void setParam() {
+        if (this.mIat==null) return;
         this.mIat.setParameter("params", null);
         this.mIat.setParameter("engine_type", this.mEngineType);
         this.mIat.setParameter("result_type", "json");
+        this.mIat.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_MIX);
         String str = this.mSharedPreferences.getString("iat_language_preference", "mandarin");
         if (str.equals("en_us"))
             this.mIat.setParameter("language", "zh_cn");
-        while (true) {
+        else {
             this.mIat.setParameter("vad_bos", this.mSharedPreferences.getString("iat_vadbos_preference", "4000"));
             this.mIat.setParameter("vad_eos", this.mSharedPreferences.getString("iat_vadeos_preference", "1000"));
             this.mIat.setParameter("asr_ptt", this.mSharedPreferences.getString("iat_punc_preference", "1"));
@@ -156,7 +159,6 @@ public class XunfeiManager {
             this.mIat.setParameter("asr_audio_path", Environment.getExternalStorageDirectory() + "/msc/iat.wav");
             this.mIat.setParameter("language", "zh_cn");
             this.mIat.setParameter("accent", str);
-            return;
         }
     }
 

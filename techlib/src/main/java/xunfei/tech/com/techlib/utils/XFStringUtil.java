@@ -34,37 +34,37 @@ public class XFStringUtil {
         numsPins = new String[]{       //数字拼音
                 "ling", "lin", "li",
                 "yi", "yao",
-                "er", "e",
+                "er",
                 "sa", "san", "shan",
                 "si", "shi",
                 "wu", "hu",
                 "liu", "lu",
-                "qi", "ji",
+                "qi",
                 "ba", "pa",
                 "jiu", "ju"
         };
         nums = new String[]{     //对应数字
                 "0", "0", "0",
                 "1", "1",
-                "2", "2",
+                "2", 
                 "3", "3", "3",
                 "4", "4",
                 "5", "5",
                 "6", "6",
-                "7", "7",
+                "7", 
                 "8", "8",
                 "9", "9"
         };
 
         EngPins = new String[]{       //英语拼音
-                "e",
+                "ei",
                 "bi",
                 "xi",
                 "di", "de",
                 "yi",
-                "fu", "fo",
+                "aifu", "fu", "fo",
                 "ji",
-                "ci", "chi",
+                "qi", "chi",
                 "ai",
                 "zei",
                 "ke",
@@ -73,15 +73,16 @@ public class XFStringUtil {
                 "en",
                 "ou", "ao",
                 "pi",
-                "yu",
+                "yo",
                 "ar",
                 "si",
                 "ti", "te",
-                "you",
+                "you", "yu",
                 "wei",
+                "W",
                 "X",
                 "wai", "wan",
-                "Z"
+                "zei", "jie"
         };
         Engs = new String[]{     //对应数字
                 "A",
@@ -89,12 +90,13 @@ public class XFStringUtil {
                 "C",
                 "D", "D",
                 "E",
-                "F", "F",
+                "F", "F", "F",
                 "G",
                 "H", "H",
                 "I",
                 "J",
                 "K",
+                "L",
                 "M",
                 "N",
                 "O", "O",
@@ -103,12 +105,12 @@ public class XFStringUtil {
                 "R",
                 "S",
                 "T", "T",
-                "U",
+                "U", "U",
                 "V",
                 "W",
                 "X",
                 "Y", "Y",
-                "Z"
+                "Z", "Z"
         };
         castToPin(mProvinceChines);
     }
@@ -207,9 +209,9 @@ public class XFStringUtil {
      ****************************************/
     private static String pinyin2single(String content) {
         content = Cn2Spell.getPinYin(content);
-        if (isProvince(content)) {
-            return getProvince(content);
-        }
+//        if (isProvince(content)) {
+//            return getProvince(content);
+//        }
         if (isNumber(content)) {
             return getNumber(content);
         }
@@ -226,9 +228,9 @@ public class XFStringUtil {
         String engStr = pinyin.substring(0, 1);
         for (int k = 0; k < EngPins.length; k++) {
             if (EngPins[k].equals(pinyin)) {
-                engStr = EngPins[k];
+                engStr = Engs[k];
+                break;
             }
-            break;
         }
         return engStr;
     }
@@ -239,11 +241,11 @@ public class XFStringUtil {
         String numStr = pinyin.substring(0, 1);
         for (int k = 0; k < numsPins.length; k++) {
             if (numsPins[k].equals(pinyin)) {
-                numStr = numsPins[k];
+                numStr = nums[k];
                 break;
             }
         }
-        return numStr.substring(0, 1);
+        return numStr;
     }
 
     //是否是英文
@@ -262,7 +264,7 @@ public class XFStringUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(subNumber("范德萨车牌x1233克劳车牌福德吉萨烦的就是卡了减肥的撒啊车牌敏敏一p23432六七", true));
+        System.out.println(castToCarNum("车牌微微为", "失败", true));
     }
 
     private static void castToPin(String[] paramArrayOfString) {

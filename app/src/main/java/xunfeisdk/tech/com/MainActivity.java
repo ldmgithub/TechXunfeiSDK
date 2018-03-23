@@ -15,6 +15,7 @@ import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.tech.xunfei.R;
 
 import xunfei.tech.com.techlib.XunfeiManager;
+import xunfei.tech.com.techlib.utils.Cn2Spell;
 import xunfei.tech.com.techlib.utils.XFStringUtil;
 
 public class MainActivity extends AppCompatActivity {
@@ -75,8 +76,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void printResult(RecognizerResult paramRecognizerResult, EditText paramEditText) {
         String str1 = this.xunfeiManager.getContent(paramRecognizerResult);
-        Log.d("BasicIatActivity", str1);
-        String str2 = XFStringUtil.parseNoneCity(str1, paramEditText.getText().toString(),false);
+        Log.d("yuanyin1", str1);
+        String pinyin = "";
+        for (int i = 0; i < str1.length(); i++) {
+            pinyin = pinyin + "_" + Cn2Spell.getPinYin(str1.substring(i, i + 1));
+        }
+        Log.d("yuanyin2", pinyin);
+        Log.d("yuanyin3", XFStringUtil.castToCarNum("车牌" + str1, "失败", true));
+
+
+        String str2 = XFStringUtil.parseNoneCity(str1, paramEditText.getText().toString(), false);
         paramEditText.setText(str2);
         paramEditText.setSelection(str2.length());
     }
