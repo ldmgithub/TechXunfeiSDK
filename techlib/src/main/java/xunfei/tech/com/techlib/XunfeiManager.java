@@ -1,6 +1,7 @@
 package xunfei.tech.com.techlib;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.util.Log;
@@ -30,7 +31,7 @@ public class XunfeiManager {
     public static final String PRIVATE_SETTING = "com.iflytek.setting";
     private static final String TAG = "xunfei";
     static XunfeiManager xunfeiManager;
-    Activity activity;
+    Context activity;
     boolean inited;
     private String mEngineType = "cloud";
     private SpeechRecognizer mIat;
@@ -132,7 +133,7 @@ public class XunfeiManager {
         return this.mIatResults;
     }
 
-    public XunfeiManager init(Activity paramActivity, RecognizerDialogListener paramRecognizerDialogListener, RecognizerListener paramRecognizerListener) {
+    public XunfeiManager init(Context paramActivity, RecognizerDialogListener paramRecognizerDialogListener, RecognizerListener paramRecognizerListener) {
         this.mRecognizerListener = paramRecognizerListener;
         this.mRecognizerDialogListener = paramRecognizerDialogListener;
         this.activity = paramActivity;
