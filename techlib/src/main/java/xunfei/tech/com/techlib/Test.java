@@ -15,9 +15,9 @@ public class Test {
     public static void main(String[] args) {
         HashMap<String, String[]> map = new HashMap<>();
 
-        String[] arg1 = new String[]{"车位", "管家"};
-        String[] arg2 = new String[]{"停车", "开闸"};
-        String[] arg3 = new String[]{"测试", "开发"};
+        String[] arg1 = new String[]{"guanjia" , "shui" ,"nimen"};
+        String[] arg2 = new String[]{"banshi", "tingche"};
+        String[] arg3 = new String[]{"ceshi", "zhangsan"};
 
         map.put("类型1", arg1);
         map.put("类型2", arg2);
@@ -25,7 +25,8 @@ public class Test {
 
         XFStringUtil.setTypes(map);
         
-        System.out.println(XFStringUtil.getType("我要车位的信息"));
+        System.out.println(XFStringUtil.getType("你们这里谁是管家君"));
+        System.out.println(XFStringUtil.getType("你们这里谁是管家君"));
         System.out.println(XFStringUtil.getType("你们这里谁是管家君"));
 
         System.out.println(XFStringUtil.getType("请帮我开闸我要出去"));

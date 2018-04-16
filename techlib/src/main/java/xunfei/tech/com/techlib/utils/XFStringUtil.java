@@ -25,7 +25,7 @@ public class XFStringUtil {
 
     /****************************************
      方法描述：設置場景
-     @param types  类型集合  key=类型  value：相应的汉字关键词
+     @param types  类型集合  key=类型  value：相应的pinyin 关键词
      @return
      ****************************************/
     public static void setTypes(HashMap<String, String[]> types) {
@@ -34,7 +34,7 @@ public class XFStringUtil {
             String[] values = types.get(key);
             int len = values.length;
             for (int i = 0; i < len; i++) {
-                mTypes.put(Cn2Spell.getPinYin(values[i]), key);
+                mTypes.put(values[i], key);
             }
         }
     }
