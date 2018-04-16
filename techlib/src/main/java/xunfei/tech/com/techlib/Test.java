@@ -16,7 +16,7 @@ public class Test {
         HashMap<String, String[]> map = new HashMap<>();
 
         String[] arg1 = new String[]{"guanjia" , "shui" ,"nimen"};
-        String[] arg2 = new String[]{"banshi", "tingche"};
+        String[] arg2 = new String[]{"kaizha", "tingche"};
         String[] arg3 = new String[]{"ceshi", "zhangsan"};
 
         map.put("类型1", arg1);
