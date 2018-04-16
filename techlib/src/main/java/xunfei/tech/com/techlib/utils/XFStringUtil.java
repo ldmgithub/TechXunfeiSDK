@@ -3,6 +3,7 @@ package xunfei.tech.com.techlib.utils;
 import android.text.TextUtils;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +21,39 @@ public class XFStringUtil {
     public static final String IS_NONE_CARNUM = "识别失败，请说\"车牌xxxxxx\"";
 
     private static String defaultCity = "粤";
+    static HashMap<String, String> mTypes = new HashMap<>(); //类型    key：场景关键词  value：具体类型
+
+    /****************************************
+     方法描述：設置場景
+     @param types  类型集合  key=类型  value：相应的汉字关键词
+     @return
+     ****************************************/
+    public static void setTypes(HashMap<String, String[]> types) {
+        mTypes = new HashMap<>();
+        for (String key : types.keySet()) {
+            String[] values = types.get(key);
+            int len = values.length;
+            for (int i = 0; i < len; i++) {
+                mTypes.put(Cn2Spell.getPinYin(values[i]), key);
+            }
+        }
+    }
+
+    /****************************************
+     方法描述：設置場景
+     @param content  完整的语音结果
+     @return
+     ****************************************/
+    public static String getType(String content) {
+        if (mTypes.isEmpty() || mTypes == null) return "";
+        for (String key : mTypes.keySet()) {
+            if (Cn2Spell.getPinYin(content).contains(key)) {
+                return mTypes.get(key);
+            }
+        }
+        return "";
+    }
+
 
     //设置默认城市
     public static void setDefaultCity(String defaultCity) {
@@ -46,12 +80,12 @@ public class XFStringUtil {
         nums = new String[]{     //对应数字
                 "0", "0", "0",
                 "1", "1",
-                "2", 
+                "2",
                 "3", "3", "3",
                 "4", "4",
                 "5", "5",
                 "6", "6",
-                "7", 
+                "7",
                 "8", "8",
                 "9", "9"
         };
