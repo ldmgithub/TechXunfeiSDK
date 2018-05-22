@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.tech.xunfei.R;
 
@@ -102,10 +103,52 @@ public class MainActivity extends AppCompatActivity {
         this.mContent = ((EditText) findViewById(R.id.et_number));
         findViewById(R.id.btn_recog).setOnClickListener(new OnClickListener() {
             public void onClick(View paramView) {
-                MainActivity.this.clickMethod();
+//                MainActivity.this.clickMethod();
             }
         });
-        this.xunfeiManager = XunfeiManager.getInstance().init(this, this.mRecognizerDialogListener, this.mRecognizerListener);
+        findViewById(R.id.btn_tts).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.this.xunfeiManager.ttsPlay(mContent.getText().toString());
+            }
+        });
+//        this.xunfeiManager = XunfeiManager.getInstance().init(this, this.mRecognizerDialogListener, this.mRecognizerListener);
+        this.xunfeiManager = XunfeiManager.getInstance().initTts(this, new SynthesizerListener() {
+            @Override
+            public void onSpeakBegin() {
+
+            }
+
+            @Override
+            public void onBufferProgress(int i, int i1, int i2, String s) {
+
+            }
+
+            @Override
+            public void onSpeakPaused() {
+
+            }
+
+            @Override
+            public void onSpeakResumed() {
+
+            }
+
+            @Override
+            public void onSpeakProgress(int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onCompleted(SpeechError speechError) {
+
+            }
+
+            @Override
+            public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
+            }
+        });
     }
 
     public void showTip(String paramString) {

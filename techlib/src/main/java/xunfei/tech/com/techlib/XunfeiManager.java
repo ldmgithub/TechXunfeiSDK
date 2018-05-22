@@ -1,18 +1,20 @@
 package xunfei.tech.com.techlib;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SpeechUtility;
+import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 
@@ -35,6 +37,15 @@ public class XunfeiManager {
     boolean inited;
     private String mEngineType = "cloud";
     private SpeechRecognizer mIat;
+    // 语音合成对象
+    private SpeechSynthesizer mTts;
+    // 默认发音人
+    private String voicer = "xiaoyan";
+    /**
+     * 合成回调监听。
+     */
+    private SynthesizerListener mTtsListener;
+
     private RecognizerDialog mIatDialog;
     private HashMap<String, String> mIatResults = new LinkedHashMap();
     private InitListener mInitListener = new InitListener() {
@@ -65,8 +76,31 @@ public class XunfeiManager {
         this.mIat = SpeechRecognizer.createRecognizer(this.activity, this.mInitListener);
         this.mIatDialog = new RecognizerDialog(this.activity, this.mInitListener);
         this.mSharedPreferences = this.activity.getSharedPreferences("com.iflytek.setting", 0);
-        this.mToast = Toast.makeText(this.activity, "", 0);
+        this.mToast = Toast.makeText(this.activity, "", Toast.LENGTH_SHORT);
     }
+
+
+
+    /**
+     * 语音合成
+     * @param voiceText
+     */
+    public void ttsPlay(String voiceText){
+        setTtsParam();
+        int code = mTts.startSpeaking(voiceText, mTtsListener);
+//			/**
+//			 * 只保存音频不进行播放接口,调用此接口请注释startSpeaking接口
+//			 * text:要合成的文本，uri:需要保存的音频全路径，listener:回调接口
+//			*/
+//			String path = Environment.getExternalStorageDirectory()+"/tts.ico";
+//			int code = mTts.synthesizeToUri(text, path, mTtsListener);
+
+        if (code != ErrorCode.SUCCESS) {
+            Log.d(TAG, "语音合成失败,错误码: " + code);
+        }
+    }
+
+
 
     private void initializeIflytek() {
         if (!this.inited) {
@@ -83,6 +117,7 @@ public class XunfeiManager {
             this.mIat.stopListening();
         }
     }
+
 
     /****************************************
      方法描述：开始监听
@@ -143,6 +178,70 @@ public class XunfeiManager {
         return xunfeiManager;
     }
 
+    //语音合成
+    public XunfeiManager initTts(Context paramActivity,SynthesizerListener synthesizerListener){
+        this.activity = paramActivity;
+        this.mTtsListener = synthesizerListener;
+        initializeIflytek();
+        initTts();
+        return xunfeiManager;
+    }
+
+    //初始化语音合成
+    private void initTts(){
+        // 初始化合成对象
+        mTts = SpeechSynthesizer.createSynthesizer(this.activity, this.mInitListener);
+        this.mSharedPreferences = this.activity.getSharedPreferences("com.iflytek.setting", 0);
+    }
+    /**
+     * 参数设置
+     * @return
+     */
+    private void setTtsParam(){
+        // 清空参数
+        mTts.setParameter(SpeechConstant.PARAMS, null);
+        // 根据合成引擎设置相应参数
+        if(mEngineType.equals(SpeechConstant.TYPE_CLOUD)) {
+            mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
+            // 设置在线合成发音人
+            mTts.setParameter(SpeechConstant.VOICE_NAME, voicer);
+            //设置合成语速
+            mTts.setParameter(SpeechConstant.SPEED, mSharedPreferences.getString("speed_preference", "50"));
+            //设置合成音调
+            mTts.setParameter(SpeechConstant.PITCH, mSharedPreferences.getString("pitch_preference", "50"));
+            //设置合成音量
+            mTts.setParameter(SpeechConstant.VOLUME, mSharedPreferences.getString("volume_preference", "50"));
+        }else {
+            mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
+            // 设置本地合成发音人 voicer为空，默认通过语记界面指定发音人。
+            mTts.setParameter(SpeechConstant.VOICE_NAME, "");
+            /**
+             * TODO 本地合成不设置语速、音调、音量，默认使用语记设置
+             * 开发者如需自定义参数，请参考在线合成参数设置
+             */
+        }
+        //设置播放器音频流类型
+        mTts.setParameter(SpeechConstant.STREAM_TYPE, mSharedPreferences.getString("stream_preference", "3"));
+        // 设置播放合成音频打断音乐播放，默认为true
+        mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
+
+        // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
+        // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
+        mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
+        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory()+"/msc/tts.wav");
+    }
+
+    public void stopTts(){
+        if(this.mTts !=null)
+            this.mTts.stopSpeaking();
+    }
+
+    public void destroyTts(){
+        stopTts();
+        mTtsListener = null;
+        mTts = null;
+    }
+
     public void setParam() {
         if (this.mIat==null) return;
         this.mIat.setParameter("params", null);
@@ -172,6 +271,8 @@ public class XunfeiManager {
         this.mToast.show();
     }
 
+
+
     public void clear() {
         this.activity = null;
         this.mIat = null;
@@ -179,6 +280,10 @@ public class XunfeiManager {
         this.mSharedPreferences = null;
         this.mRecognizerListener = null;
         this.mRecognizerDialogListener = null;
+        this.mTts = null;
+        this.mTtsListener = null;
+
+
     }
 
     public boolean isEmpty() {
