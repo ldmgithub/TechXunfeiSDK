@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.github.dcendents.android-maven'
-//group ='com.github.TopTech666'
-                                     
+apply plugin: 'com.github.dcendents.android-maven'
+group ='com.github.TopTech666'
+
 android {
     compileSdkVersion 23
     defaultConfig {
