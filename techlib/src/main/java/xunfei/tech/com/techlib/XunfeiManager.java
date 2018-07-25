@@ -80,13 +80,17 @@ public class XunfeiManager {
     }
 
 
+    public void ttsPlay(String voiceText) {
+        ttsPlay(voiceText, false);
+    }
 
     /**
      * 语音合成
-     * @param voiceText
+     *
+     * @param voiceText isNumber true 非数字拆分读  false  数字拆分
      */
-    public void ttsPlay(String voiceText){
-        setTtsParam();
+    public void ttsPlay(String voiceText, boolean isNumber) {
+        setTtsParam(isNumber);
         int code = mTts.startSpeaking(voiceText, mTtsListener);
 //			/**
 //			 * 只保存音频不进行播放接口,调用此接口请注释startSpeaking接口
@@ -99,7 +103,6 @@ public class XunfeiManager {
             Log.d(TAG, "语音合成失败,错误码: " + code);
         }
     }
-
 
 
     private void initializeIflytek() {
@@ -179,7 +182,7 @@ public class XunfeiManager {
     }
 
     //语音合成
-    public XunfeiManager initTts(Context paramActivity,SynthesizerListener synthesizerListener){
+    public XunfeiManager initTts(Context paramActivity, SynthesizerListener synthesizerListener) {
         this.activity = paramActivity;
         this.mTtsListener = synthesizerListener;
         initializeIflytek();
@@ -188,20 +191,30 @@ public class XunfeiManager {
     }
 
     //初始化语音合成
-    private void initTts(){
+    private void initTts() {
         // 初始化合成对象
         mTts = SpeechSynthesizer.createSynthesizer(this.activity, this.mInitListener);
         this.mSharedPreferences = this.activity.getSharedPreferences("com.iflytek.setting", 0);
     }
+
     /**
      * 参数设置
+     *
      * @return
+     * @param isNumber true 数字连读 false 数字拆分读
+     *
      */
-    private void setTtsParam(){
+    private void setTtsParam(boolean isNumber) {
         // 清空参数
         mTts.setParameter(SpeechConstant.PARAMS, null);
+        mTts.setParameter("rdn", isNumber?"1":"2"); //设置数字读法
+
+       /* 0 //自动，不确定按照值的读法合成
+        1 //按照值的读法合成
+        2 //按照串的读法合成
+        3 //自动，不确定时按照串读法合成*/
         // 根据合成引擎设置相应参数
-        if(mEngineType.equals(SpeechConstant.TYPE_CLOUD)) {
+        if (mEngineType.equals(SpeechConstant.TYPE_CLOUD)) {
             mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
             // 设置在线合成发音人
             mTts.setParameter(SpeechConstant.VOICE_NAME, voicer);
@@ -211,7 +224,7 @@ public class XunfeiManager {
             mTts.setParameter(SpeechConstant.PITCH, mSharedPreferences.getString("pitch_preference", "50"));
             //设置合成音量
             mTts.setParameter(SpeechConstant.VOLUME, mSharedPreferences.getString("volume_preference", "50"));
-        }else {
+        } else {
             mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
             // 设置本地合成发音人 voicer为空，默认通过语记界面指定发音人。
             mTts.setParameter(SpeechConstant.VOICE_NAME, "");
@@ -228,22 +241,22 @@ public class XunfeiManager {
         // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
         // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
         mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
-        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory()+"/msc/tts.wav");
+        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.wav");
     }
 
-    public void stopTts(){
-        if(this.mTts !=null)
+    public void stopTts() {
+        if (this.mTts != null)
             this.mTts.stopSpeaking();
     }
 
-    public void destroyTts(){
+    public void destroyTts() {
         stopTts();
         mTtsListener = null;
         mTts = null;
     }
 
     public void setParam() {
-        if (this.mIat==null) return;
+        if (this.mIat == null) return;
         this.mIat.setParameter("params", null);
         this.mIat.setParameter("engine_type", this.mEngineType);
         this.mIat.setParameter("result_type", "json");
@@ -270,7 +283,6 @@ public class XunfeiManager {
         this.mToast.setText(paramString);
         this.mToast.show();
     }
-
 
 
     public void clear() {

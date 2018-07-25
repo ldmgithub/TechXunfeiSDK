@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         setContentView(R.layout.activity_main);
-        this.mToast = Toast.makeText(this, "", 0);
+        this.mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         this.mContent = ((EditText) findViewById(R.id.et_number));
         findViewById(R.id.btn_recog).setOnClickListener(new OnClickListener() {
             public void onClick(View paramView) {
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            @Override
+            @Override                                                 
             public void onSpeakProgress(int i, int i1, int i2) {
 
             }
@@ -149,7 +149,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
+        this.xunfeiManager = XunfeiManager.getInstance().init(this, this.mRecognizerDialogListener, this.mRecognizerListener);
+        xunfeiManager.ttsPlay("粤B123456",false);
+    }                          
 
     public void showTip(String paramString) {
         this.mToast.setText(paramString);
