@@ -171,15 +171,17 @@ public class XunfeiManager {
         return this.mIatResults;
     }
 
-    public XunfeiManager init(Context paramActivity, RecognizerDialogListener paramRecognizerDialogListener, RecognizerListener paramRecognizerListener) {
+    //isEng 是否是英语
+    public XunfeiManager init(Context paramActivity, RecognizerDialogListener paramRecognizerDialogListener, RecognizerListener paramRecognizerListener,boolean isEng) {
         this.mRecognizerListener = paramRecognizerListener;
         this.mRecognizerDialogListener = paramRecognizerDialogListener;
         this.activity = paramActivity;
         initializeIflytek();
         initIat();
-        setParam();
+        setParam(isEng);
         return xunfeiManager;
     }
+
 
     //语音合成
     public XunfeiManager initTts(Context paramActivity, SynthesizerListener synthesizerListener) {
@@ -255,7 +257,7 @@ public class XunfeiManager {
         mTts = null;
     }
 
-    public void setParam() {
+    public void setParam(boolean isEng) {
         if (this.mIat == null) return;
         this.mIat.setParameter("params", null);
         this.mIat.setParameter("engine_type", this.mEngineType);
@@ -273,6 +275,9 @@ public class XunfeiManager {
             this.mIat.setParameter("language", "zh_cn");
             this.mIat.setParameter("accent", str);
         }
+
+        this.mIat.setParameter("language", isEng?"en_us":"zh_cn");
+
     }
 
     public void setmRecognizerListener(RecognizerListener paramRecognizerListener) {

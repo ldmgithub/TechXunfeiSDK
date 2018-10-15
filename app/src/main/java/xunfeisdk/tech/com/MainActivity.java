@@ -149,7 +149,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        this.xunfeiManager = XunfeiManager.getInstance().init(this, this.mRecognizerDialogListener, this.mRecognizerListener);
+        this.xunfeiManager = XunfeiManager.getInstance().init(
+                this, this.mRecognizerDialogListener, this.mRecognizerListener,false);
         xunfeiManager.ttsPlay("粤B123456",false);
     }                          
 
