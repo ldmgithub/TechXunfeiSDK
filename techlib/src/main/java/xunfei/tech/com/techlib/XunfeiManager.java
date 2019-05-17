@@ -41,6 +41,7 @@ public class XunfeiManager {
     private SpeechSynthesizer mTts;
     // 默认发音人
     private String voicer = "xiaoyan";
+
     /**
      * 合成回调监听。
      */
@@ -172,7 +173,7 @@ public class XunfeiManager {
     }
 
     //isEng 是否是英语
-    public XunfeiManager init(Context paramActivity, RecognizerDialogListener paramRecognizerDialogListener, RecognizerListener paramRecognizerListener,boolean isEng) {
+    public XunfeiManager init(Context paramActivity, RecognizerDialogListener paramRecognizerDialogListener, RecognizerListener paramRecognizerListener, boolean isEng) {
         this.mRecognizerListener = paramRecognizerListener;
         this.mRecognizerDialogListener = paramRecognizerDialogListener;
         this.activity = paramActivity;
@@ -202,14 +203,13 @@ public class XunfeiManager {
     /**
      * 参数设置
      *
-     * @return
      * @param isNumber true 数字连读 false 数字拆分读
-     *
+     * @return
      */
     private void setTtsParam(boolean isNumber) {
         // 清空参数
         mTts.setParameter(SpeechConstant.PARAMS, null);
-        mTts.setParameter("rdn", isNumber?"1":"2"); //设置数字读法
+        mTts.setParameter("rdn", isNumber ? "1" : "2"); //设置数字读法
 
        /* 0 //自动，不确定按照值的读法合成
         1 //按照值的读法合成
@@ -257,6 +257,12 @@ public class XunfeiManager {
         mTts = null;
     }
 
+    public void setVolume(Integer volume) {
+        if (volume >= 0 && volume <= 100) {
+            mTts.setParameter(SpeechConstant.VOLUME, mSharedPreferences.getString("volume_preference", volume.toString()));
+        }
+    }
+
     public void setParam(boolean isEng) {
         if (this.mIat == null) return;
         this.mIat.setParameter("params", null);
@@ -276,7 +282,7 @@ public class XunfeiManager {
             this.mIat.setParameter("accent", str);
         }
 
-        this.mIat.setParameter("language", isEng?"en_us":"zh_cn");
+        this.mIat.setParameter("language", isEng ? "en_us" : "zh_cn");
 
     }
 
