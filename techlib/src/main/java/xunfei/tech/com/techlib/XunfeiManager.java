@@ -196,8 +196,8 @@ public class XunfeiManager {
     //初始化语音合成
     private void initTts() {
         // 初始化合成对象
-        mTts = SpeechSynthesizer.createSynthesizer(this.activity, this.mInitListener);
         this.mSharedPreferences = this.activity.getSharedPreferences("com.iflytek.setting", 0);
+        mTts = SpeechSynthesizer.createSynthesizer(this.activity, this.mInitListener);
     }
 
     /**
@@ -225,7 +225,7 @@ public class XunfeiManager {
             //设置合成音调
             mTts.setParameter(SpeechConstant.PITCH, mSharedPreferences.getString("pitch_preference", "50"));
             //设置合成音量
-            mTts.setParameter(SpeechConstant.VOLUME, mSharedPreferences.getString("volume_preference", "50"));
+            mTts.setParameter(SpeechConstant.VOLUME, mSharedPreferences.getString("volume_preference", "80"));
         } else {
             mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
             // 设置本地合成发音人 voicer为空，默认通过语记界面指定发音人。
@@ -258,7 +258,10 @@ public class XunfeiManager {
     }
 
     public void setVolume(Integer volume) {
-        if (volume >= 0 && volume <= 100) {
+        if (mTts == null) {
+            mTts = SpeechSynthesizer.createSynthesizer(this.activity, this.mInitListener);
+        }
+        if (volume >= 0 && volume <= 100 && mTts != null) {
             mTts.setParameter(SpeechConstant.VOLUME, mSharedPreferences.getString("volume_preference", volume.toString()));
         }
     }
